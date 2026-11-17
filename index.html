@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#07131b"/>
+  <meta name="description" content="Interactive 3D pyrolysis plant with waste preparation, oxygen-limited heating, condensation, pyrolysis oil, recovered gas, and char"/>
+  <title>PyroLab 3D — Interactive Waste Pyrolysis Plant</title>
+  <link rel="stylesheet" href="./styles.css"/>
+</head>
+<body>
+  <div class="ambient a-one"></div><div class="ambient a-two"></div>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="WasteCycle 3D home">
+        <span class="brand-symbol" aria-hidden="true"><span>♨</span></span>
+        <span class="brand-name">PYRO<span>LAB</span><small>3D</small></span>
+      </a>
+      <div class="header-mid"><span class="tiny-status"></span><span>INTERACTIVE THERMOCHEMICAL PROCESS SIMULATOR</span></div>
+      <button class="header-help" id="helpBtn" type="button"><span>?</span> How to use</button>
+    </header>
+
+    <main id="top">
+      <section class="intro">
+        <div class="intro-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> FROM DRY WASTE TO USEFUL OUTPUTS</div>
+          <h1>Step inside a <em>working</em><br/>pyrolysis plant.</h1>
+          <p>Follow pre-treated dry waste through an oxygen-limited reactor, cooling and product recovery. Watch material flow through real process equipment — then explore each stage with guided voice narration.</p>
+        </div>
+        <div class="intro-stat"><div class="pulse-ring"><span>↗</span></div><div><strong>9</strong><span>PROCESS STAGES</span></div><div class="vertical-rule"></div><div><strong>3D</strong><span>LIVE DIORAMA</span></div></div>
+      </section>
+
+      <section class="experience" aria-label="Interactive 3D solid waste management model">
+        <div class="stage-window">
+          <div class="window-top">
+            <div class="live-pill"><span class="live-blink"></span>ANIMATED PROCESS MODEL</div>
+            <div class="window-hint"><span class="desktop-hint">Drag to orbit <b>·</b> Scroll to zoom</span><span class="mobile-hint">Swipe to rotate · Pinch to zoom</span></div>
+            <button class="icon-btn expand-btn" type="button" id="fullscreenBtn" title="Toggle fullscreen" aria-label="Toggle fullscreen"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M3 16v5h5"/></svg></button>
+          </div>
+          <canvas id="scene" aria-label="Animated three-dimensional miniature processing facility showing waste segregation and processing"></canvas>
+          <div id="hoverTooltip" class="hover-tip" hidden></div>
+          <div class="stream-legend" aria-label="Process stream legend"><span><i class="lg-dry"></i>DRY FEED</span><span><i class="lg-heat"></i>HOT VAPOUR</span><span><i class="lg-oil"></i>OIL</span><span><i class="lg-gas"></i>GAS</span><span><i class="lg-char"></i>CHAR</span></div>
+          <div class="scene-bottom">
+            <div class="scene-caption"><div class="caption-numb" id="captionNumb">01 / 09</div><div class="caption-name" id="captionName">Feedstock segregation</div></div>
+            <div class="scene-controls"><button type="button" class="scene-mini" id="resetCameraBtn" title="Reset camera angle">⤾ <span>Reset view</span></button><button type="button" class="scene-mini" id="orbitBtn" title="Auto orbit camera">◌ <span>Auto orbit</span></button></div>
+          </div>
+          <div class="camera-notice" id="cameraNotice">You can rotate this model!</div>
+        </div>
+
+        <aside class="stage-panel">
+          <div class="panel-head"><div><span class="overline">THE PYROLYSIS PROCESS</span><h2>Explore the plant</h2></div><span class="stages-total">09 STAGES</span></div>
+          <div class="stage-list" id="stageList" aria-label="Choose a waste management stage"></div>
+          <div class="panel-bottom"><span class="small-orbit">✦</span><span>Choose equipment to focus the camera, see the moving stream and hear its explanation.</span></div>
+        </aside>
+      </section>
+
+      <section class="control-deck">
+        <div class="deck-main"><button class="start-btn" id="tourBtn" type="button"><span id="tourIcon">▶</span> <span id="tourLabel">START GUIDED TOUR</span></button><button class="audio-btn active" id="voiceBtn" type="button" aria-pressed="true"><span id="voiceIcon">♫</span><span id="voiceLabel">Voice on</span></button><button class="audio-btn" id="motionBtn" type="button"><span id="motionIcon">Ⅱ</span><span id="motionLabel">Pause motion</span></button><button class="audio-btn" id="narrateBtn" type="button"><span>◖))</span><span>Hear this stage</span></button></div>
+        <div class="deck-progress"><div class="progress-meta"><span id="currentStepLabel">STAGE 01 OF 09</span><span id="tourStatus">READY TO EXPLORE</span></div><div class="track"><div id="progressFill"></div></div></div>
+      </section>
+
+      <section class="explain">
+        <div class="explain-heading"><span class="overline">INSIDE THE PROCESS</span><h2 id="explainTitle">Start with the right feedstock.</h2><p id="explainLead">Pyrolysis is thermal decomposition in an oxygen-free or oxygen-limited environment. The outputs depend on the waste and operating conditions.</p></div>
+        <div class="explain-cards"><div class="explain-card"><span class="mini-tag">01 / ACTION</span><div id="actionIcon" class="card-icon">♻</div><h3 id="actionTitle">Select suitable dry feedstock</h3><p id="actionDesc">Wet food waste goes to composting; selected dry residual material can be prepared for thermal treatment.</p></div><div class="explain-card"><span class="mini-tag">02 / WHY IT MATTERS</span><div class="card-icon charcoal">◎</div><h3 id="whyTitle">Controlled reactor conditions</h3><p id="whyDesc">Heat decomposes prepared organic feedstock while oxygen is excluded; process gases need appropriate treatment.</p></div><div class="explain-card principle"><span class="mini-tag">03 / CLASSROOM TAKEAWAY</span><div class="card-icon">✳</div><h3 id="lessonTitle">Feedstock segregation</h3><p id="lessonDesc">Explain the three main product streams: condensable vapours, non-condensable gas and solid char.</p></div></div>
+      </section>
+
+      <section class="bottom-note"><div class="bottom-mark">↻</div><p><strong>Model note:</strong> Conceptual teaching model based on your physical poster. Not a construction, operating, safety, emissions or equipment-sizing guide. Actual pyrolysis needs engineered feedstock controls, reactor sealing, gas treatment, fire protection and tested product quality.</p><div class="note-right">INSPIRED BY YOUR PYROLYSIS POSTER</div></section>
+    </main>
+  </div>
+  <dialog id="helpModal" class="help-modal"><form method="dialog"><button class="modal-close" aria-label="Close help">×</button><div class="overline">HOW IT WORKS</div><h2>You're inside the pyrolysis plant.</h2><div class="help-grid"><div><b>01</b><strong>Start the tour</strong><p>Hit the bright green button. The camera moves between all 9 stages while a voice explains the process.</p></div><div><b>02</b><strong>Explore anything</strong><p>Choose an equipment stage on the right. Drag to rotate, scroll or pinch to zoom, and watch the streams move.</p></div><div><b>03</b><strong>Turn voice on/off</strong><p>Narration uses browser speech when available, with nine included MP3 fallback files. It starts after you click a control.</p></div><div><b>04</b><strong>Present fullscreen</strong><p>Use fullscreen for a projector. Explain the feed path, the oil/gas/char branches, and why air must be excluded.</p></div></div><button type="submit" class="modal-ok">GOT IT →</button></form></dialog>
+  <script src="./main.js" defer></script>
+</body>
+</html>
