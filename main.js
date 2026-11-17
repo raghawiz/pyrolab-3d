@@ -400,7 +400,7 @@
     if(recordedNarration){recordedNarration.pause();recordedNarration.currentTime=0;recordedNarration=null}
   }
   function playRecorded(token){
-    const filename=`./audio/stage-${String(state.step+1).padStart(2,'0')}.mp3`;
+    const filename=`./stage-${String(state.step+1).padStart(2,'0')}.mp3`;
     recordedNarration=new Audio(filename);recordedNarration.preload='auto';
     recordedNarration.onplay=()=>{if(token===state.narrationId)$('tourStatus').textContent='PLAYING NARRATION'};
     recordedNarration.onended=()=>{if(token===state.narrationId)$('tourStatus').textContent=state.autoplay?'GUIDED TOUR PLAYING':'READY TO EXPLORE'};
